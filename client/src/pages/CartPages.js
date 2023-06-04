@@ -48,7 +48,9 @@ const CartPage = () => {
   //get payment gateway token
   const getToken = async () => {
     try {
-      const { data } = await axios.get("/api/v1/product/braintree/token");
+      let URL1 = "/api/v1/product/braintree/token";
+      URL1 = encodeURI(URL1);
+      const { data } = await axios.get(URL1);
       setClientToken(data?.clientToken);
     } catch (error) {
       console.log(error);
@@ -63,7 +65,9 @@ const CartPage = () => {
     try {
       setLoading(true);
       const { nonce } = await instance.requestPaymentMethod();
-      const { data } = await axios.post("/api/v1/product/braintree/payment", {
+      let URL2 = "/api/v1/product/braintree/payment";
+      URL2 = encodeURI(URL2);
+      const { data } = await axios.post(URL2, {
         nonce,
         cart,
       });
